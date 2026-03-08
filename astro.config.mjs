@@ -9,6 +9,6 @@ export default {
   site: isGithubPages ? "https://pedroagentesocial.github.io" : "https://www.boltwatts.com",
   base: isGithubPages ? "/boltwatts" : "/",
   output: "static",
-  integrations: [react(), tailwind(), sitemap()],
+  integrations: isGithubPages ? [react(), tailwind()] : [react(), tailwind(), sitemap()],
   prefetch: true,
 };
