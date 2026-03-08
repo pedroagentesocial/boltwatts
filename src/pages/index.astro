@@ -1,0 +1,27 @@
+---
+import { defaultLang, getDictionary } from "../i18n/config";
+const fallback = `/${defaultLang}`;
+const dict = getDictionary(defaultLang);
+---
+
+<!DOCTYPE html>
+<html lang={defaultLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{dict.common.redirect.title}</title>
+    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+  </head>
+  <body class="bg-white">
+    <script>
+      const pref = typeof localStorage !== 'undefined' ? localStorage.getItem('prefLang') : null;
+      const target = pref === 'es' ? '/es' : '/en';
+      if (location.pathname === '/' || location.pathname === '') {
+        location.replace(target);
+      }
+    </script>
+    <noscript>
+      <p>{dict.common.redirect.message} <a href={fallback}>{fallback}</a>.</p>
+    </noscript>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import IndustrialExperience from "../../../components/industrial/IndustrialExperience";
+import QuoteRouterModal from "../../../components/hub/QuoteRouterModal";
+import { getDictionary, buildPath, type Lang } from "../../../i18n/config";
+import { hubServiceCategories, hubServices } from "../../../data/hub";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const dict = getDictionary(lang);
+const contactPath = buildPath(lang, "contact");
+const projectsPath = buildPath(lang, "projects");
+---
+
+<BaseLayout lang={lang} dict={dict} title={`${dict.industrialPage.title} • ${dict.common.brand}`} description={dict.industrialPage.subtitle}>
+  <IndustrialExperience client:load dict={dict} lang={lang} contactPath={contactPath} projectsPath={projectsPath} />
+  <QuoteRouterModal
+    client:load
+    dict={dict}
+    serviceCategories={hubServiceCategories}
+    services={hubServices}
+    contactPath={contactPath}
+  />
+</BaseLayout>

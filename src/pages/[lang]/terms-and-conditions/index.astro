@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getDictionary, buildPath, type Lang } from "../../../i18n/config";
+import { siteConfig } from "../../../config/site";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const dict = getDictionary(lang);
+const privacyPath = buildPath(lang, "privacyPolicy");
+const termsSections = dict.legalPages.terms.sections;
+---
+
+<BaseLayout
+  lang={lang}
+  dict={dict}
+  title={`${dict.legalPages.terms.title} • ${dict.common.brand}`}
+  description={dict.legalPages.terms.description}
+>
+  <section class="py-10" aria-labelledby="terms-title">
+    <h1 id="terms-title" class="text-3xl sm:text-4xl font-bold text-bw-navy">{dict.legalPages.terms.heading}</h1>
+    <p class="mt-3 text-sm text-bw-gray">
+      {dict.legalPages.effectiveLabel}: {siteConfig.EFFECTIVE_DATE} · {dict.legalPages.updatedLabel}: {siteConfig.LAST_UPDATED}
+    </p>
+    <div class="mt-4 rounded-xl border border-bw-lightgray bg-bw-lightblue/60 p-4">
+      <p class="font-semibold text-bw-navy">{dict.legalPages.templateOnly}</p>
+      <p class="mt-1 text-sm text-bw-navy">{dict.legalPages.templateNotice}</p>
+    </div>
+    <p class="mt-5 max-w-3xl leading-7 text-bw-gray">{dict.legalPages.terms.intro}</p>
+    <a
+      href={privacyPath}
+      class="mt-6 inline-flex items-center rounded-md border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy transition motion-safe:duration-300 hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+    >
+      {dict.common.footer.privacy}
+    </a>
+  </section>
+
+  <section class="border-t border-bw-lightgray py-8" aria-labelledby="terms-toc-title">
+    <h2 id="terms-toc-title" class="text-xl font-semibold text-bw-navy">{dict.legalPages.tableOfContents}</h2>
+    <nav class="mt-4" aria-label={dict.legalPages.tableOfContents}>
+      <ol class="grid gap-2 text-sm text-bw-gray sm:grid-cols-2">
+        {termsSections.map((section) => (
+          <li>
+            <a
+              href={`#${section.id}`}
+              class="underline-offset-2 transition motion-safe:duration-300 hover:text-bw-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            >
+              {section.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </section>
+
+  <section class="border-t border-bw-lightgray py-8">
+    <div class="max-w-3xl space-y-8">
+      {termsSections.map((section) => (
+        <article id={section.id} class="scroll-mt-24 border-b border-bw-lightgray pb-8 last:border-none" aria-labelledby={`${section.id}-title`}>
+          <h2 id={`${section.id}-title`} class="text-2xl font-semibold text-bw-navy">{section.title}</h2>
+          <div class="mt-3 space-y-3 text-bw-gray leading-7">
+            {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+          {section.bullets && section.bullets.length > 0 ? (
+            <ul class="mt-4 list-disc space-y-2 pl-5 text-bw-gray leading-7">
+              {section.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          ) : null}
+          {section.id === "governing-law" ? (
+            <p class="mt-4 rounded-lg border border-bw-lightgray bg-white p-3 text-sm text-bw-gray">
+              {dict.legalPages.placeholders.jurisdiction}: {siteConfig.JURISDICTION}
+            </p>
+          ) : null}
+          {section.id === "contact" ? (
+            <div class="mt-5 rounded-xl border border-bw-lightgray bg-white p-4 text-sm text-bw-gray">
+              <p>{dict.legalPages.placeholders.companyLegalName}: {siteConfig.COMPANY_LEGAL_NAME}</p>
+              <p class="mt-2">{dict.legalPages.placeholders.contactEmail}: {siteConfig.CONTACT_EMAIL}</p>
+              <p class="mt-2">{dict.legalPages.placeholders.contactPhone}: {siteConfig.CONTACT_PHONE}</p>
+              <p class="mt-2">{dict.legalPages.placeholders.businessAddress}: {siteConfig.BUSINESS_ADDRESS}</p>
+              <p class="mt-2">{dict.legalPages.placeholders.websiteUrl}: {siteConfig.WEBSITE_URL}</p>
+            </div>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.boltwatts.com/sitemap-index.xml

@@ -1,0 +1,121 @@
+---
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { buildPath } from "../i18n/config";
+import { siteConfig } from "../config/site";
+import type { Lang, Dictionary } from "../i18n/config";
+import "../styles/globals.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang: Lang;
+  dict: Dictionary;
+}
+
+const { title = "BoltWatts", description = "", lang, dict } = Astro.props as Props;
+const homePath = buildPath(lang, "home");
+const site = Astro.site ?? new URL("https://www.boltwatts.com");
+const canonicalUrl = new URL(Astro.url.pathname, site);
+const ogImageUrl = new URL("/og/og-default.svg", site);
+const ogLocale = lang === "es" ? "es_ES" : "en_US";
+const organizationData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: dict.common.brand,
+  url: site.toString(),
+  telephone: siteConfig.phoneNumber,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.locality,
+    addressRegion: siteConfig.address.region,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
+};
+const localBusinessData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: dict.common.brand,
+  description,
+  url: canonicalUrl.toString(),
+  telephone: siteConfig.phoneNumber,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.locality,
+    addressRegion: siteConfig.address.region,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
+};
+const showQuoteRouter = Astro.url.pathname === homePath || Astro.url.pathname === `${homePath}/`;
+const mainClass = showQuoteRouter ? "container-responsive pb-10" : "container-responsive py-10";
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl.toString()} />
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.toString()} />
+    <meta property="og:site_name" content={dict.common.brand} />
+    <meta property="og:image" content={ogImageUrl.toString()} />
+    <meta property="og:image:alt" content={dict.common.brand} />
+    <meta property="og:locale" content={ogLocale} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(organizationData)}></script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(localBusinessData)}></script>
+  </head>
+  <body>
+    <script is:inline define:vars={{ lang }}>
+      const __LANG__ = lang;
+      try { localStorage.setItem('prefLang', __LANG__); } catch {}
+    </script>
+    <a href="#main" class="sr-only focus:not-sr-only focus:block p-2 m-2 rounded bg-bw-lightblue text-bw-navy">
+      {dict.common.accessibility.skipToContent}
+    </a>
+    <Header 
+      lang={lang} 
+      dict={dict} 
+      currentPath={Astro.url.pathname}
+      client:load
+    />
+    <main id="main" class={mainClass}>
+      <slot />
+    </main>
+    <Footer lang={lang} dict={dict} />
+    <script is:inline>
+      const animatedSections = document.querySelectorAll('[data-animate]');
+      animatedSections.forEach((el) => {
+        el.setAttribute('data-state', 'hidden');
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute('data-state', 'visible');
+          }
+        });
+      }, { threshold: 0.2 });
+      animatedSections.forEach((el) => observer.observe(el));
+      document.querySelectorAll('img').forEach((img) => {
+        if (img.dataset.priority === 'true') {
+          img.loading = 'eager';
+          img.fetchPriority = 'high';
+          img.decoding = 'sync';
+          return;
+        }
+        if (!img.loading) img.loading = 'lazy';
+        if (!img.decoding) img.decoding = 'async';
+      });
+    </script>
+  </body>
+  </html>

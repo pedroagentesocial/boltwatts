@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ContactExperience from "../../../components/contact/ContactExperience";
+import QuoteRouterModal from "../../../components/hub/QuoteRouterModal";
+import { getDictionary, buildPath, type Lang } from "../../../i18n/config";
+import { hubServiceCategories, hubServices } from "../../../data/hub";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "es" } }];
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const dict = getDictionary(lang);
+const contactPath = buildPath(lang, "contact");
+---
+
+<BaseLayout
+  lang={lang}
+  dict={dict}
+  title={`${dict.contactPage.title} • ${dict.common.brand}`}
+  description={dict.contactPage.subtitle}
+>
+  <ContactExperience client:load dict={dict} lang={lang} contactPath={contactPath} serviceCategories={hubServiceCategories} />
+  <QuoteRouterModal
+    client:load
+    dict={dict}
+    serviceCategories={hubServiceCategories}
+    services={hubServices}
+    contactPath={contactPath}
+  />
+</BaseLayout>

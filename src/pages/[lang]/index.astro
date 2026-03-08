@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostHeroExperience from "../../components/hub/PostHeroExperience";
+import QuoteRouterModal from "../../components/hub/QuoteRouterModal";
+import { getDictionary, isSupportedLang, buildPath, type Lang } from "../../i18n/config";
+import { hubServiceCategories, hubServices } from "../../data/hub";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
+
+const { lang } = Astro.params as { lang: string };
+const activeLang: Lang = isSupportedLang(lang) ? (lang as Lang) : "en";
+const dict = getDictionary(activeLang);
+const contactPath = buildPath(activeLang, "contact");
+const servicesPath = buildPath(activeLang, "services");
+const projectsPath = buildPath(activeLang, "projects");
+const heroVideos = [
+  {
+    title: activeLang === "es" ? "Video destacado 1" : "Featured video 1",
+    src: "/videos/hero1.mp4",
+    fallbackSrc: "/videos/hero1.mp4",
+  },
+  {
+    title: activeLang === "es" ? "Video destacado 2" : "Featured video 2",
+    src: "/videos/hero2.mp4",
+    fallbackSrc: "/videos/hero3.mp4",
+  },
+  {
+    title: activeLang === "es" ? "Video destacado 3" : "Featured video 3",
+    src: "/videos/hero3.mp4",
+    fallbackSrc: "/videos/hero3.mp4",
+  },
+];
+const carouselLabels =
+  activeLang === "es"
+    ? {
+        previous: "Video anterior",
+        next: "Siguiente video",
+        goTo: "Ir al video",
+        slide: "Video",
+      }
+    : {
+        previous: "Previous video",
+        next: "Next video",
+        goTo: "Go to video",
+        slide: "Video",
+      };
+---
+
+<BaseLayout
+  lang={activeLang}
+  dict={dict}
+  title={`${dict.common.brand} • ${dict.home.title}`}
+  description={dict.home.subtitle}
+>
+  <section
+    data-hero-carousel
+    class="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden bg-bw-navy motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4"
+  >
+    <div data-carousel-track class="absolute inset-0 flex transition-transform duration-700 ease-in-out will-change-transform">
+      {heroVideos.map((video, index) => (
+        <div class="relative h-full min-w-full bg-[radial-gradient(circle_at_30%_20%,#2563eb_0%,#1e293b_45%,#0f172a_100%)]">
+          <div
+            class="absolute inset-0 opacity-25"
+            style="background-image:url('/renasci-experience.svg');background-size:cover;background-position:center;"
+          ></div>
+          <video
+            class="absolute inset-0 h-full w-full object-cover"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload={index === 0 ? "auto" : "metadata"}
+            poster="/logo.png"
+            aria-label={`${carouselLabels.slide} ${index + 1}`}
+            data-fallback-src={video.fallbackSrc}
+          >
+            <source src={video.src} />
+          </video>
+        </div>
+      ))}
+    </div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-bw-navy/90 via-bw-navy/65 to-bw-navy/35"></div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bw-navy/85 via-transparent to-transparent"></div>
+
+    <div class="container-responsive relative z-10">
+      <div class="grid min-h-[440px] items-end gap-10 py-10 sm:py-14 lg:min-h-[520px] lg:py-16">
+        <div>
+          <h1 class="text-4xl font-bold text-white sm:text-5xl">{dict.home.title}</h1>
+          <p class="mt-4 max-w-prose text-lg text-white/85">{dict.home.subtitle}</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a
+              href={contactPath}
+              data-quote-open="true"
+              class="inline-flex items-center rounded-md bg-bw-primary px-5 py-2.5 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            >
+              {dict.home.heroCtas.primary}
+            </a>
+            <a
+              href={servicesPath}
+              class="inline-flex items-center rounded-md border border-white/60 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+            >
+              {dict.home.heroCtas.secondary}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      data-carousel-prev
+      aria-label={carouselLabels.previous}
+      class="absolute left-3 top-1/2 z-20 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-bw-navy shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+    >
+      &#8249;
+    </button>
+    <button
+      type="button"
+      data-carousel-next
+      aria-label={carouselLabels.next}
+      class="absolute right-3 top-1/2 z-20 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/85 text-bw-navy shadow hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+    >
+      &#8250;
+    </button>
+    <div class="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
+      {heroVideos.map((_, index) => (
+        <button
+          type="button"
+          data-carousel-dot
+          data-carousel-index={index}
+          aria-label={`${carouselLabels.goTo} ${index + 1}`}
+          class={`h-2.5 w-2.5 rounded-full border border-white/80 transition-all duration-300 ${
+            index === 0 ? "bg-white scale-110" : "bg-white/40"
+          }`}
+        />
+      ))}
+    </div>
+  </section>
+
+  <PostHeroExperience client:load dict={dict} lang={activeLang} contactPath={contactPath} projectsPath={projectsPath} />
+
+  <QuoteRouterModal
+    client:load
+    dict={dict}
+    serviceCategories={hubServiceCategories}
+    services={hubServices}
+    contactPath={contactPath}
+  />
+  <script is:inline>
+    document.querySelectorAll('[data-hero-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('[data-carousel-track]');
+      const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
+      const videos = Array.from(carousel.querySelectorAll('video'));
+      const prevButton = carousel.querySelector('[data-carousel-prev]');
+      const nextButton = carousel.querySelector('[data-carousel-next]');
+      if (!(track instanceof HTMLElement) || dots.length === 0) return;
+
+      videos.forEach((video) => {
+        if (!(video instanceof HTMLVideoElement)) return;
+        video.addEventListener('error', () => {
+          const source = video.querySelector('source');
+          const fallbackSrc = video.dataset.fallbackSrc;
+          if (!(source instanceof HTMLSourceElement) || !fallbackSrc) return;
+          if (source.getAttribute('src') === fallbackSrc || video.dataset.fallbackApplied === 'true') return;
+          source.setAttribute('src', fallbackSrc);
+          video.dataset.fallbackApplied = 'true';
+          video.load();
+          video.play().catch(() => {});
+        });
+      });
+
+      const totalSlides = dots.length;
+      let currentIndex = 0;
+      let autoSlideTimer;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const updateSlide = (targetIndex) => {
+        currentIndex = (targetIndex + totalSlides) % totalSlides;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => {
+          const isActive = index === currentIndex;
+          dot.classList.toggle('bg-white', isActive);
+          dot.classList.toggle('scale-110', isActive);
+          dot.classList.toggle('bg-white/40', !isActive);
+          dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+        });
+      };
+
+      const startAutoSlide = () => {
+        if (prefersReducedMotion) return;
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = window.setInterval(() => updateSlide(currentIndex + 1), 5000);
+      };
+
+      const pauseAutoSlide = () => {
+        clearInterval(autoSlideTimer);
+      };
+
+      prevButton?.addEventListener('click', () => {
+        updateSlide(currentIndex - 1);
+        startAutoSlide();
+      });
+
+      nextButton?.addEventListener('click', () => {
+        updateSlide(currentIndex + 1);
+        startAutoSlide();
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const targetIndex = Number(dot.getAttribute('data-carousel-index') || '0');
+          updateSlide(targetIndex);
+          startAutoSlide();
+        });
+      });
+
+      carousel.addEventListener('mouseenter', pauseAutoSlide);
+      carousel.addEventListener('mouseleave', startAutoSlide);
+      carousel.addEventListener('focusin', pauseAutoSlide);
+      carousel.addEventListener('focusout', startAutoSlide);
+
+      updateSlide(0);
+      startAutoSlide();
+    });
+  </script>
+</BaseLayout>
