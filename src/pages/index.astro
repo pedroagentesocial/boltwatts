@@ -1,6 +1,6 @@
 ---
 import { defaultLang, getDictionary } from "../i18n/config";
-const fallback = `/${defaultLang}`;
+const fallback = `./${defaultLang}`;
 const dict = getDictionary(defaultLang);
 ---
 
@@ -15,7 +15,7 @@ const dict = getDictionary(defaultLang);
   <body class="bg-white">
     <script>
       const pref = typeof localStorage !== 'undefined' ? localStorage.getItem('prefLang') : null;
-      const target = pref === 'es' ? '/es' : '/en';
+      const target = pref === 'es' ? './es' : './en';
       if (location.pathname === '/' || location.pathname === '') {
         location.replace(target);
       }
