@@ -37,20 +37,39 @@ export const routeMap = {
 
 type RouteId = keyof typeof routeMap;
 
+function getBasePath() {
+  const rawBase = (import.meta.env.BASE_URL || "/").replace(/\/+$/, "");
+  return rawBase === "" ? "/" : rawBase;
+}
+
+function withBase(path: string) {
+  const base = getBasePath();
+  if (base === "/") {
+    return path;
+  }
+  return `${base}${path}`;
+}
+
 export function buildPath(lang: Lang, route: RouteId) {
   const slug = routeMap[route][lang];
-  return `/${lang}/${slug}`.replace(/\/$/, "");
+  const path = `/${lang}/${slug}`.replace(/\/$/, "");
+  return withBase(path);
 }
 
 // Switch current pathname to a target language, preserving route (if mapped)
 export function switchLangPath(pathname: string, to: Lang): string {
+  const base = getBasePath();
+  const normalizedPathname =
+    base !== "/" && pathname.startsWith(`${base}/`)
+      ? pathname.slice(base.length)
+      : pathname;
   // normalize leading slash
-  const parts = pathname.replace(/\/+$/, "").split("/").filter(Boolean);
-  if (parts.length === 0) return `/${to}`;
+  const parts = normalizedPathname.replace(/\/+$/, "").split("/").filter(Boolean);
+  if (parts.length === 0) return withBase(`/${to}`);
   const [, ...rest] = parts[0] === "en" || parts[0] === "es" ? parts : [to, ...parts];
   // Try to map the first content segment by routeMap definitions
   let content = rest;
-  if (rest.length === 0) return `/${to}`;
+  if (rest.length === 0) return withBase(`/${to}`);
   const first = rest[0];
   let mapped = first;
   for (const key of Object.keys(routeMap) as Array<keyof typeof routeMap>) {
@@ -62,7 +81,7 @@ export function switchLangPath(pathname: string, to: Lang): string {
   }
   content = [mapped, ...rest.slice(1)];
   const next = `/${to}/${content.join("/")}`.replace(/\/$/, "");
-  return next;
+  return withBase(next);
 }
 
 export function isSupportedLang(value: string): value is Lang {
