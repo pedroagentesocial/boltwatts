@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import QuoteRouterModal from "../../../components/hub/QuoteRouterModal";
-import { getDictionary, buildPath, type Lang } from "../../../i18n/config";
+import { getDictionary, buildPath, withBasePath, type Lang } from "../../../i18n/config";
 import { projectsCatalog } from "../../../data/projectsExperience";
 import { hubServiceCategories, hubServices } from "../../../data/hub";
 
@@ -47,7 +47,7 @@ if (!project || !projectContent || !caseStudy) {
         <p class="mt-4 text-bw-gray max-w-prose">{projectContent.goal}</p>
       </div>
       <div class="rounded-2xl border border-bw-lightgray bg-white p-4">
-        <img src={project.image || "/images/project-preview-residential.svg"} alt={projectContent.title} class="h-52 w-full rounded-xl object-cover" />
+        <img src={project.image || withBasePath("/images/project-preview-residential.svg")} alt={projectContent.title} class="h-52 w-full rounded-xl object-cover" />
       </div>
     </div>
   </section>

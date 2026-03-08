@@ -1,4 +1,4 @@
-import type { Dictionary } from "../../i18n/config";
+import { withBasePath, type Dictionary } from "../../i18n/config";
 import { aboutTeamMembers } from "../../data/aboutExperience";
 import ImageCard from "../hub/ImageCard";
 
@@ -17,7 +17,7 @@ export default function TeamGrid({ dict }: Props) {
           <p className="mt-2 max-w-prose text-bw-gray">{dict.aboutPage.team.subtitle}</p>
         </div>
         <ImageCard
-          src="/images/about/team.jpg"
+          src={withBasePath("/images/about/team.jpg")}
           alt={dict.aboutPage.team.imageAlt}
           fallbackLabel={dict.home.imageFallback}
           className="h-56 w-full rounded-2xl border border-bw-lightgray"

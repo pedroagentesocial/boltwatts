@@ -1,5 +1,5 @@
 import React from "react";
-import { buildPath, type Dictionary, type Lang } from "../i18n/config";
+import { buildPath, withBasePath, type Dictionary, type Lang } from "../i18n/config";
 import { siteConfig } from "../config/site";
 
 type Props = {
@@ -72,7 +72,7 @@ export default function Footer({ lang, dict }: Props) {
               aria-label={dict.common.googleReviews.openLabel}
               className="mt-4 inline-flex items-center rounded-full border border-white/20 bg-white px-3 py-1.5 text-xs font-semibold text-bw-navy transition motion-safe:duration-300 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             >
-              <img src="/images/logos/google-reviews.svg" alt={dict.common.googleReviews.badgeLabel} className="h-5 w-auto" />
+              <img src={withBasePath("/images/logos/google-reviews.svg")} alt={dict.common.googleReviews.badgeLabel} className="h-5 w-auto" />
             </a>
           </div>
 

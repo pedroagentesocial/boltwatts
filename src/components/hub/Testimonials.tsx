@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { siteConfig } from "../../config/site";
+import { withBasePath } from "../../i18n/config";
 import ImageCard from "./ImageCard";
 
 type TestimonialItem = {
@@ -101,7 +102,7 @@ export default function Testimonials({
                 </>
               ) : (
                 <img
-                  src="/images/logos/google-reviews.svg"
+                  src={withBasePath("/images/logos/google-reviews.svg")}
                   alt={reviewsBadgeLabel}
                   loading="lazy"
                   decoding="async"

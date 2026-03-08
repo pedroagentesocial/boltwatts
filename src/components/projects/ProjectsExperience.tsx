@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import ProjectsGrid from "./ProjectsGrid";
 import FeaturedProjectsCarousel from "./FeaturedProjectsCarousel";
@@ -33,7 +33,7 @@ export default function ProjectsExperience({ dict, lang, contactPath }: Props) {
 
   const testimonialItems = dict.projectsPage.testimonials.items.map((item, index) => ({
     ...item,
-    avatar: `/images/testimonial-avatar-${(index % 3) + 1}.svg`,
+    avatar: withBasePath(`/images/testimonial-avatar-${(index % 3) + 1}.svg`),
   }));
 
   return (

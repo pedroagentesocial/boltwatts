@@ -1,5 +1,5 @@
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import type { HubServiceCategory } from "../../data/hub";
 import ImageCard from "../hub/ImageCard";
@@ -63,7 +63,7 @@ export default function ContactExperience({ dict, lang, contactPath, serviceCate
             </div>
           </div>
           <ImageCard
-            src="/images/contact/contact-hero.svg"
+            src={withBasePath("/images/contact/contact-hero.svg")}
             alt={dict.contactPage.hero.imageAlt}
             fallbackLabel={dict.home.imageFallback}
             className="h-72 w-full rounded-2xl border border-bw-lightgray"
@@ -84,7 +84,7 @@ export default function ContactExperience({ dict, lang, contactPath, serviceCate
             <p className="mt-2 max-w-prose text-bw-gray">{dict.contactPage.serviceArea.subtitle}</p>
           </div>
           <ImageCard
-            src="/images/contact/service-area.svg"
+            src={withBasePath("/images/contact/service-area.svg")}
             alt={dict.contactPage.serviceArea.imageAlt}
             fallbackLabel={dict.home.imageFallback}
             className="h-56 w-full rounded-2xl border border-bw-lightgray"

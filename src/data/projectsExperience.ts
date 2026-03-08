@@ -1,4 +1,5 @@
 import type { ServiceId } from "./hub";
+import { withBasePath } from "../i18n/config";
 
 export type ProjectDivision = "residential" | "commercial" | "industrial";
 export type ProjectTagId = "renovation" | "buildout" | "coordination" | "upgrade";
@@ -18,13 +19,14 @@ export type ProjectItem = {
 export const projectDivisionFilters: Array<"all" | ProjectDivision> = ["all", "residential", "commercial", "industrial"];
 export const projectTagFilters: ProjectTagId[] = ["renovation", "buildout", "coordination", "upgrade"];
 export const projectSortOptions: ProjectSortId[] = ["newest", "az", "division"];
+const media = (path: string) => withBasePath(path);
 
 export const projectsCatalog: ProjectItem[] = [
   {
     slug: "residential-layout-refresh",
     division: "residential",
     tags: ["renovation", "coordination"],
-    image: "/images/Residential-layout-refresh.jpg",
+    image: media("/images/Residential-layout-refresh.jpg"),
     featured: true,
     sortOrder: 8,
     suggestedServiceId: "residential-remodeling",
@@ -34,7 +36,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "home-expansion-phasing",
     division: "residential",
     tags: ["buildout", "upgrade"],
-    image: "/images/Home-expansion-phasing.jpg",
+    image: media("/images/Home-expansion-phasing.jpg"),
     featured: false,
     sortOrder: 7,
     suggestedServiceId: "home-additions",
@@ -44,7 +46,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "tenant-space-alignment",
     division: "commercial",
     tags: ["buildout", "coordination"],
-    image: "/images/Tenant-space-alignment.jpg",
+    image: media("/images/Tenant-space-alignment.jpg"),
     featured: true,
     sortOrder: 6,
     suggestedServiceId: "tenant-buildouts",
@@ -54,7 +56,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "office-modernization-wave",
     division: "commercial",
     tags: ["renovation", "upgrade"],
-    image: "/images/Office-modernization-wave.jpg",
+    image: media("/images/Office-modernization-wave.jpg"),
     featured: false,
     sortOrder: 5,
     suggestedServiceId: "office-renovations",
@@ -64,7 +66,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "portfolio-coordination-cycle",
     division: "commercial",
     tags: ["coordination", "upgrade"],
-    image: "/images/Portfolio-coordination-cycle.jpg",
+    image: media("/images/Portfolio-coordination-cycle.jpg"),
     featured: true,
     sortOrder: 4,
     suggestedServiceId: "project-management",
@@ -74,7 +76,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "facility-access-upgrade",
     division: "industrial",
     tags: ["upgrade", "coordination"],
-    image: "/images/Facility-access-upgrade.jpg",
+    image: media("/images/Facility-access-upgrade.jpg"),
     featured: true,
     sortOrder: 3,
     suggestedServiceId: "facility-upgrades",
@@ -84,7 +86,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "safety-retrofit-sequence",
     division: "industrial",
     tags: ["upgrade", "renovation"],
-    image: "/images/safety-retrofits.jpg",
+    image: media("/images/safety-retrofits.jpg"),
     featured: false,
     sortOrder: 2,
     suggestedServiceId: "safety-retrofits",
@@ -94,7 +96,7 @@ export const projectsCatalog: ProjectItem[] = [
     slug: "shutdown-readiness-plan",
     division: "industrial",
     tags: ["coordination", "buildout"],
-    image: "/images/shutdown-planning.jpg",
+    image: media("/images/shutdown-planning.jpg"),
     featured: false,
     sortOrder: 1,
     suggestedServiceId: "shutdown-planning",

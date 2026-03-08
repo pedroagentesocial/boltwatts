@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import {
   catalogTags,
@@ -50,7 +50,7 @@ export default function PostHeroExperience({ dict, lang, contactPath, projectsPa
 
   const testimonialsWithAvatars = dict.home.testimonials.items.map((item, index) => ({
     ...item,
-    avatar: `/images/testimonial-avatar-${(index % 3) + 1}.svg`,
+    avatar: withBasePath(`/images/testimonial-avatar-${(index % 3) + 1}.svg`),
   }));
 
   const quickLinks = [

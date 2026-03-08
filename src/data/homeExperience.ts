@@ -1,4 +1,5 @@
 import type { HubDestination, ServiceId } from "./hub";
+import { withBasePath } from "../i18n/config";
 
 export type HomeDivisionFilter = "all" | "residential" | "commercial" | "industrial";
 export type HomeDivisionId = Exclude<HomeDivisionFilter, "all">;
@@ -15,6 +16,7 @@ export type HomeServiceCard = {
 
 export const divisionFilters: HomeDivisionFilter[] = ["all", "residential", "commercial", "industrial"];
 export const catalogTags: HomeTagId[] = ["renovation", "buildout", "maintenance", "planning"];
+const media = (path: string) => withBasePath(path);
 
 export const homeServiceCards: HomeServiceCard[] = [
   {
@@ -22,7 +24,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "residential-remodeling",
     division: "residential",
     destination: { type: "internal", route: "services", query: { division: "residential" } },
-    image: "/images/residential-remodeling.jpg",
+    image: media("/images/residential-remodeling.jpg"),
     tags: ["renovation", "planning"],
   },
   {
@@ -30,7 +32,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "home-additions",
     division: "residential",
     destination: { type: "internal", route: "services", query: { division: "residential" } },
-    image: "/images/home-additions.jpg",
+    image: media("/images/home-additions.jpg"),
     tags: ["buildout", "planning"],
   },
   {
@@ -38,7 +40,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "maintenance-plans",
     division: "residential",
     destination: { type: "internal", route: "maintenance" },
-    image: "/images/maintence-plan.jpg",
+    image: media("/images/maintence-plan.jpg"),
     tags: ["maintenance", "planning"],
   },
   {
@@ -46,7 +48,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "tenant-buildouts",
     division: "commercial",
     destination: { type: "internal", route: "services", query: { division: "commercial" } },
-    image: "/images/tenant-buildots.jpg",
+    image: media("/images/tenant-buildots.jpg"),
     tags: ["buildout", "planning"],
   },
   {
@@ -54,7 +56,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "office-renovations",
     division: "commercial",
     destination: { type: "internal", route: "services", query: { division: "commercial" } },
-    image: "/images/office-renovations.jpg",
+    image: media("/images/office-renovations.jpg"),
     tags: ["renovation", "buildout"],
   },
   {
@@ -62,7 +64,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "project-management",
     division: "commercial",
     destination: { type: "internal", route: "services", query: { division: "commercial" } },
-    image: "/images/project-management.jpg",
+    image: media("/images/project-management.jpg"),
     tags: ["planning", "maintenance"],
   },
   {
@@ -70,7 +72,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "facility-upgrades",
     division: "industrial",
     destination: { type: "internal", route: "industrial" },
-    image: "/images/facilities-upgrades.jpg",
+    image: media("/images/facilities-upgrades.jpg"),
     tags: ["renovation", "maintenance"],
   },
   {
@@ -78,7 +80,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "safety-retrofits",
     division: "industrial",
     destination: { type: "internal", route: "industrial" },
-    image: "/images/safety-retrofits.jpg",
+    image: media("/images/safety-retrofits.jpg"),
     tags: ["maintenance", "planning"],
   },
   {
@@ -86,7 +88,7 @@ export const homeServiceCards: HomeServiceCard[] = [
     serviceId: "shutdown-planning",
     division: "industrial",
     destination: { type: "internal", route: "industrial" },
-    image: "/images/shutdown-planning.jpg",
+    image: media("/images/shutdown-planning.jpg"),
     tags: ["planning", "buildout"],
   },
 ];
@@ -98,7 +100,7 @@ export const divisionFeaturedCards: Record<HomeDivisionId, string[]> = {
 };
 
 export const projectPreviewImages = [
-  "/images/home-additions.jpg",
-  "/images/project-management.jpg",
-  "/images/safety-retrofits.jpg",
+  media("/images/home-additions.jpg"),
+  media("/images/project-management.jpg"),
+  media("/images/safety-retrofits.jpg"),
 ] as const;

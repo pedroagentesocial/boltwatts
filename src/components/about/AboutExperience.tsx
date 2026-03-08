@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import ImageCard from "../hub/ImageCard";
 import ValuesGrid from "./ValuesGrid";
@@ -34,7 +34,7 @@ export default function AboutExperience({ dict, lang, contactPath }: Props) {
 
   const testimonialItems = dict.aboutPage.testimonials.items.map((item, index) => ({
     ...item,
-    avatar: `/images/testimonial-avatar-${(index % 3) + 1}.svg`,
+    avatar: withBasePath(`/images/testimonial-avatar-${(index % 3) + 1}.svg`),
   }));
 
   return (
@@ -64,7 +64,7 @@ export default function AboutExperience({ dict, lang, contactPath }: Props) {
             </div>
           </div>
           <ImageCard
-            src="/images/Residential-layout-refresh.jpg"
+            src={withBasePath("/images/Residential-layout-refresh.jpg")}
             alt={dict.aboutPage.hero.imageAlt}
             fallbackLabel={dict.home.imageFallback}
             className="h-72 w-full rounded-2xl border border-bw-lightgray"

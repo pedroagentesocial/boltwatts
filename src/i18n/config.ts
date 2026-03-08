@@ -42,7 +42,7 @@ function getBasePath() {
   return rawBase === "" ? "/" : rawBase;
 }
 
-function withBase(path: string) {
+export function withBasePath(path: string) {
   const base = getBasePath();
   if (base === "/") {
     return path;
@@ -53,7 +53,7 @@ function withBase(path: string) {
 export function buildPath(lang: Lang, route: RouteId) {
   const slug = routeMap[route][lang];
   const path = `/${lang}/${slug}`.replace(/\/$/, "");
-  return withBase(path);
+  return withBasePath(path);
 }
 
 // Switch current pathname to a target language, preserving route (if mapped)
@@ -65,11 +65,11 @@ export function switchLangPath(pathname: string, to: Lang): string {
       : pathname;
   // normalize leading slash
   const parts = normalizedPathname.replace(/\/+$/, "").split("/").filter(Boolean);
-  if (parts.length === 0) return withBase(`/${to}`);
+  if (parts.length === 0) return withBasePath(`/${to}`);
   const [, ...rest] = parts[0] === "en" || parts[0] === "es" ? parts : [to, ...parts];
   // Try to map the first content segment by routeMap definitions
   let content = rest;
-  if (rest.length === 0) return withBase(`/${to}`);
+  if (rest.length === 0) return withBasePath(`/${to}`);
   const first = rest[0];
   let mapped = first;
   for (const key of Object.keys(routeMap) as Array<keyof typeof routeMap>) {
@@ -81,7 +81,7 @@ export function switchLangPath(pathname: string, to: Lang): string {
   }
   content = [mapped, ...rest.slice(1)];
   const next = `/${to}/${content.join("/")}`.replace(/\/$/, "");
-  return withBase(next);
+  return withBasePath(next);
 }
 
 export function isSupportedLang(value: string): value is Lang {

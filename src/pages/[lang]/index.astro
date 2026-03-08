@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostHeroExperience from "../../components/hub/PostHeroExperience";
 import QuoteRouterModal from "../../components/hub/QuoteRouterModal";
-import { getDictionary, isSupportedLang, buildPath, type Lang } from "../../i18n/config";
+import { getDictionary, isSupportedLang, buildPath, withBasePath, type Lang } from "../../i18n/config";
 import { hubServiceCategories, hubServices } from "../../data/hub";
 
 export function getStaticPaths() {
@@ -18,18 +18,18 @@ const projectsPath = buildPath(activeLang, "projects");
 const heroVideos = [
   {
     title: activeLang === "es" ? "Video destacado 1" : "Featured video 1",
-    src: "/videos/hero1.mp4",
-    fallbackSrc: "/videos/hero1.mp4",
+    src: withBasePath("/videos/hero1.mp4"),
+    fallbackSrc: withBasePath("/videos/hero1.mp4"),
   },
   {
     title: activeLang === "es" ? "Video destacado 2" : "Featured video 2",
-    src: "/videos/hero2.mp4",
-    fallbackSrc: "/videos/hero3.mp4",
+    src: withBasePath("/videos/hero2.mp4"),
+    fallbackSrc: withBasePath("/videos/hero3.mp4"),
   },
   {
     title: activeLang === "es" ? "Video destacado 3" : "Featured video 3",
-    src: "/videos/hero3.mp4",
-    fallbackSrc: "/videos/hero3.mp4",
+    src: withBasePath("/videos/hero3.mp4"),
+    fallbackSrc: withBasePath("/videos/hero3.mp4"),
   },
 ];
 const carouselLabels =
@@ -63,7 +63,7 @@ const carouselLabels =
         <div class="relative h-full min-w-full bg-[radial-gradient(circle_at_30%_20%,#2563eb_0%,#1e293b_45%,#0f172a_100%)]">
           <div
             class="absolute inset-0 opacity-25"
-            style="background-image:url('/renasci-experience.svg');background-size:cover;background-position:center;"
+            style={`background-image:url('${withBasePath("/renasci-experience.svg")}');background-size:cover;background-position:center;`}
           ></div>
           <video
             class="absolute inset-0 h-full w-full object-cover"
@@ -72,7 +72,7 @@ const carouselLabels =
             loop
             playsinline
             preload={index === 0 ? "auto" : "metadata"}
-            poster="/logo.png"
+            poster={withBasePath("/logo.png")}
             aria-label={`${carouselLabels.slide} ${index + 1}`}
             data-fallback-src={video.fallbackSrc}
           >

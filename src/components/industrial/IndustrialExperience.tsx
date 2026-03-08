@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import { industrialProjectPreviewImages } from "../../data/industrialExperience";
 import IndustrialCapabilities from "./IndustrialCapabilities";
@@ -22,7 +22,7 @@ export default function IndustrialExperience({ dict, lang, contactPath, projects
 
   const testimonialsWithAvatars = dict.industrialPage.testimonials.items.map((item, index) => ({
     ...item,
-    avatar: `/images/testimonial-avatar-${(index % 3) + 1}.svg`,
+    avatar: withBasePath(`/images/testimonial-avatar-${(index % 3) + 1}.svg`),
   }));
 
   const quickLinks = [

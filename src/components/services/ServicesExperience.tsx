@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { Dictionary, Lang } from "../../i18n/config";
-import { buildPath } from "../../i18n/config";
+import { buildPath, withBasePath } from "../../i18n/config";
 import { siteConfig } from "../../config/site";
 import { divisionSpotlights, servicesCatalog, type ServicesDivision } from "../../data/servicesCatalog";
 import ServiceCatalog from "./ServiceCatalog";
@@ -53,7 +53,7 @@ export default function ServicesExperience({ dict, lang, contactPath }: Props) {
 
   const testimonialsWithAvatars = dict.servicesPage.testimonials.items.map((item, index) => ({
     ...item,
-    avatar: `/images/testimonial-avatar-${(index % 3) + 1}.svg`,
+    avatar: withBasePath(`/images/testimonial-avatar-${(index % 3) + 1}.svg`),
   }));
 
   const quickLinks = [
