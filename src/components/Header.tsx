@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
-import { buildPath, switchLangPath, type Lang, type Dictionary } from "../i18n/config";
+import { buildPath, switchLangPath, withBasePath, type Lang, type Dictionary } from "../i18n/config";
 import { siteConfig } from "../config/site";
 
 type Props = {
@@ -94,10 +94,8 @@ export default function Header({ lang, dict, currentPath }: Props) {
     >
       <div className="container-responsive flex items-center justify-between py-4">
         <a href={buildPath(lang, "home")} className="flex items-center gap-3" aria-label={dict.common.brand}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-bw-primary text-white text-xs font-semibold">
-            BW
-          </span>
-          <span className="text-base font-semibold text-bw-navy">{dict.common.brand}</span>
+          <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-10 w-10 rounded-md object-cover" />
+          <span className="text-base font-display font-semibold text-bw-navy">{dict.common.brand}</span>
         </a>
         <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
           {navLinks.map(link => (

@@ -63,7 +63,10 @@ export default function Footer({ lang, dict }: Props) {
 
         <div className="mt-8 grid gap-8 border-t border-white/20 pt-8 lg:grid-cols-4">
           <div>
-            <p className="text-lg font-semibold text-white">{dict.common.brand}</p>
+            <a href={buildPath(lang, "home")} className="inline-flex items-center gap-3" aria-label={dict.common.brand}>
+              <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-10 w-10 rounded-md object-cover" />
+              <p className="text-lg font-display font-semibold text-white">{dict.common.brand}</p>
+            </a>
             <p className="mt-3 max-w-sm text-sm text-white/80">{dict.common.footer.brandDescription}</p>
             <a
               href={siteConfig.GOOGLE_REVIEWS_URL}

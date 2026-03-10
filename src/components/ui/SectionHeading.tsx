@@ -20,7 +20,7 @@ export default function SectionHeading({ title, subtitle, eyebrow, align = "left
         className
       )}
     >
-      {eyebrow ? <p className="text-xs uppercase tracking-[0.3em] text-bw-gray">{eyebrow}</p> : null}
+      {eyebrow ? <p className="font-script text-xs uppercase tracking-[0.3em] text-bw-gray">{eyebrow}</p> : null}
       <h2 className="text-2xl sm:text-3xl font-semibold text-bw-navy">{title}</h2>
       {subtitle ? <p className="text-bw-gray max-w-prose">{subtitle}</p> : null}
     </div>

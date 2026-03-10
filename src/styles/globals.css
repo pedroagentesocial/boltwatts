@@ -2,12 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "PoppinsLocal";
+  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BasiqueLocal";
+  src: url("./fonts/Basique-Bold.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NickainleyLocal";
+  src: url("./fonts/Nickainley-Normal.otf") format("opentype");
+  font-display: swap;
+}
+
 @layer base {
+  :root {
+    --font-primary: "PoppinsLocal", "Poppins", "Segoe UI", sans-serif;
+    --font-display: "BasiqueLocal", "PoppinsLocal", "Segoe UI", sans-serif;
+    --font-script: "NickainleyLocal", "PoppinsLocal", "Segoe UI", sans-serif;
+  }
   html {
     color-scheme: light;
   }
   body {
+    font-family: var(--font-primary);
     @apply bg-white text-bw-navy antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
   }
   a {
     @apply text-bw-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 rounded-sm;
@@ -17,5 +46,15 @@
 @layer components {
   .container-responsive {
     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-script {
+    font-family: var(--font-script);
   }
 }

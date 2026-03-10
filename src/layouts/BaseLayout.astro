@@ -1,7 +1,7 @@
 ---
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { buildPath } from "../i18n/config";
+import { buildPath, withBasePath } from "../i18n/config";
 import { siteConfig } from "../config/site";
 import type { Lang, Dictionary } from "../i18n/config";
 import "../styles/globals.css";
@@ -17,13 +17,15 @@ const { title = "BoltWatts", description = "", lang, dict } = Astro.props as Pro
 const homePath = buildPath(lang, "home");
 const site = Astro.site ?? new URL("https://www.boltwatts.com");
 const canonicalUrl = new URL(Astro.url.pathname, site);
-const ogImageUrl = new URL("/og/og-default.svg", site);
+const logoPath = withBasePath("/images/logo.png");
+const ogImageUrl = new URL(logoPath, site);
 const ogLocale = lang === "es" ? "es_ES" : "en_US";
 const organizationData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: dict.common.brand,
   url: site.toString(),
+  logo: ogImageUrl.toString(),
   telephone: siteConfig.phoneNumber,
   email: siteConfig.email,
   address: {
@@ -62,6 +64,8 @@ const mainClass = showQuoteRouter ? "container-responsive pb-10" : "container-re
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href={logoPath} />
+    <link rel="apple-touch-icon" href={logoPath} />
     <link rel="canonical" href={canonicalUrl.toString()} />
     <title>{title}</title>
     <meta property="og:title" content={title} />
