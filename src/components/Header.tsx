@@ -93,9 +93,8 @@ export default function Header({ lang, dict, currentPath }: Props) {
       }`}
     >
       <div className="container-responsive flex items-center justify-between py-4">
-        <a href={buildPath(lang, "home")} className="flex items-center gap-3" aria-label={dict.common.brand}>
-          <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-10 w-10 rounded-md object-cover" />
-          <span className="text-base font-display font-semibold text-bw-navy">{dict.common.brand}</span>
+        <a href={buildPath(lang, "home")} className="flex items-center" aria-label={dict.common.brand}>
+          <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-12 w-auto object-contain" />
         </a>
         <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
           {navLinks.map(link => (
