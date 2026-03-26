@@ -1,5 +1,4 @@
 import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 const isGithubPages = process.env.GITHUB_ACTIONS === "true";
@@ -9,6 +8,6 @@ export default {
   site: isGithubPages ? "https://pedroagentesocial.github.io" : "https://www.boltwatts.com",
   base: isGithubPages ? "/boltwatts" : "/",
   output: "static",
-  integrations: isGithubPages ? [react(), tailwind()] : [react(), tailwind(), sitemap()],
+  integrations: [react(), tailwind()],
   prefetch: true,
 };
