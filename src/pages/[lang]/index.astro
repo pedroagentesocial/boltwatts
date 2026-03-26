@@ -15,19 +15,35 @@ const dict = getDictionary(activeLang);
 const contactPath = buildPath(activeLang, "contact");
 const servicesPath = buildPath(activeLang, "services");
 const projectsPath = buildPath(activeLang, "projects");
-const heroVideos = [
+const aboutPath = buildPath(activeLang, "about");
+const heroSlides = [
   {
-    title: activeLang === "es" ? "Video destacado 1" : "Featured video 1",
+    title: dict.home.title,
+    subtitle: dict.home.subtitle,
+    primaryLabel: dict.home.heroCtas.primary,
+    primaryHref: contactPath,
+    secondaryLabel: dict.home.heroCtas.secondary,
+    secondaryHref: servicesPath,
     src: withBasePath("/videos/hero1.mp4"),
     fallbackSrc: withBasePath("/videos/hero1.mp4"),
   },
   {
-    title: activeLang === "es" ? "Video destacado 2" : "Featured video 2",
+    title: dict.home.divisionRouter.title,
+    subtitle: dict.home.divisionRouter.subtitle,
+    primaryLabel: dict.common.nav.services,
+    primaryHref: servicesPath,
+    secondaryLabel: dict.common.nav.projects,
+    secondaryHref: projectsPath,
     src: withBasePath("/videos/hero2.mp4"),
     fallbackSrc: withBasePath("/videos/hero3.mp4"),
   },
   {
-    title: activeLang === "es" ? "Video destacado 3" : "Featured video 3",
+    title: dict.home.finalCta.title,
+    subtitle: dict.home.finalCta.subtitle,
+    primaryLabel: dict.common.nav.about,
+    primaryHref: aboutPath,
+    secondaryLabel: dict.common.nav.contact,
+    secondaryHref: contactPath,
     src: withBasePath("/videos/hero3.mp4"),
     fallbackSrc: withBasePath("/videos/hero3.mp4"),
   },
@@ -56,15 +72,11 @@ const carouselLabels =
 >
   <section
     data-hero-carousel
-    class="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden bg-bw-navy motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4"
+    class="relative left-1/2 right-1/2 w-screen -translate-x-1/2 overflow-hidden bg-black motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4"
   >
     <div data-carousel-track class="absolute inset-0 flex transition-transform duration-700 ease-in-out will-change-transform">
-      {heroVideos.map((video, index) => (
-        <div class="relative h-full min-w-full bg-[radial-gradient(circle_at_30%_20%,#2563eb_0%,#1e293b_45%,#0f172a_100%)]">
-          <div
-            class="absolute inset-0 opacity-25"
-            style={`background-image:url('${withBasePath("/renasci-experience.svg")}');background-size:cover;background-position:center;`}
-          ></div>
+      {heroSlides.map((slide, index) => (
+        <div data-carousel-slide class="relative h-full min-w-full">
           <video
             class="absolute inset-0 h-full w-full object-cover"
             autoplay
@@ -74,39 +86,43 @@ const carouselLabels =
             preload={index === 0 ? "auto" : "metadata"}
             poster={withBasePath("/images/logo.png")}
             aria-label={`${carouselLabels.slide} ${index + 1}`}
-            data-fallback-src={video.fallbackSrc}
+            data-fallback-src={slide.fallbackSrc}
           >
-            <source src={video.src} />
+            <source src={slide.src} />
           </video>
+          <div class="container-responsive relative z-10">
+            <div class="grid min-h-[440px] items-end gap-10 py-10 sm:py-14 lg:min-h-[520px] lg:py-16">
+              <div
+                data-carousel-content
+                class={`max-w-2xl transition-all duration-700 ease-out ${
+                  index === 0 ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                }`}
+              >
+                <h1 class="text-4xl font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)] sm:text-5xl">{slide.title}</h1>
+                <p class="mt-4 max-w-prose text-lg text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.45)]">{slide.subtitle}</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href={slide.primaryHref}
+                    data-quote-open={slide.primaryHref === contactPath ? "true" : undefined}
+                    class="inline-flex items-center rounded-md bg-bw-primary px-5 py-2.5 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+                  >
+                    {slide.primaryLabel}
+                  </a>
+                  <a
+                    href={slide.secondaryHref}
+                    class="inline-flex items-center rounded-md border border-white/70 bg-black/20 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-[1px] hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                  >
+                    {slide.secondaryLabel}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ))}
     </div>
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-bw-navy/90 via-bw-navy/65 to-bw-navy/35"></div>
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bw-navy/85 via-transparent to-transparent"></div>
-
-    <div class="container-responsive relative z-10">
-      <div class="grid min-h-[440px] items-end gap-10 py-10 sm:py-14 lg:min-h-[520px] lg:py-16">
-        <div>
-          <h1 class="text-4xl font-bold text-white sm:text-5xl">{dict.home.title}</h1>
-          <p class="mt-4 max-w-prose text-lg text-white/85">{dict.home.subtitle}</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a
-              href={contactPath}
-              data-quote-open="true"
-              class="inline-flex items-center rounded-md bg-bw-primary px-5 py-2.5 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-            >
-              {dict.home.heroCtas.primary}
-            </a>
-            <a
-              href={servicesPath}
-              class="inline-flex items-center rounded-md border border-white/60 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-            >
-              {dict.home.heroCtas.secondary}
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-black/25"></div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
     <button
       type="button"
@@ -125,7 +141,7 @@ const carouselLabels =
       &#8250;
     </button>
     <div class="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2">
-      {heroVideos.map((_, index) => (
+      {heroSlides.map((_, index) => (
         <button
           type="button"
           data-carousel-dot
@@ -153,6 +169,7 @@ const carouselLabels =
       const track = carousel.querySelector('[data-carousel-track]');
       const dots = Array.from(carousel.querySelectorAll('[data-carousel-dot]'));
       const videos = Array.from(carousel.querySelectorAll('video'));
+      const slides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
       const prevButton = carousel.querySelector('[data-carousel-prev]');
       const nextButton = carousel.querySelector('[data-carousel-next]');
       if (!(track instanceof HTMLElement) || dots.length === 0) return;
@@ -179,6 +196,16 @@ const carouselLabels =
       const updateSlide = (targetIndex) => {
         currentIndex = (targetIndex + totalSlides) % totalSlides;
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        slides.forEach((slide, index) => {
+          if (!(slide instanceof HTMLElement)) return;
+          const content = slide.querySelector('[data-carousel-content]');
+          const isActive = index === currentIndex;
+          if (!(content instanceof HTMLElement)) return;
+          content.classList.toggle('opacity-100', isActive);
+          content.classList.toggle('translate-y-0', isActive);
+          content.classList.toggle('opacity-0', !isActive);
+          content.classList.toggle('translate-y-4', !isActive);
+        });
         dots.forEach((dot, index) => {
           const isActive = index === currentIndex;
           dot.classList.toggle('bg-white', isActive);
