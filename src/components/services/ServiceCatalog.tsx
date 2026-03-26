@@ -82,9 +82,9 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
     activeDivision === "all" ? "" : projectTypeByDivision[activeDivision as keyof typeof projectTypeByDivision];
 
   return (
-    <section id="services-catalog" className="py-14 border-t border-bw-lightgray" aria-labelledby="catalog-title">
+    <section id="services-catalog" className="py-12 border-t border-bw-lightgray sm:py-14" aria-labelledby="catalog-title">
       <div
-        className={`fixed left-0 right-0 z-40 border-b border-bw-lightgray bg-white/95 backdrop-blur transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-40 border-b border-white/20 bg-[#06152b]/95 text-white backdrop-blur transition-all duration-300 ${
           showSticky
             ? "pointer-events-auto top-[64px] translate-y-0 opacity-100"
             : "pointer-events-none top-[64px] -translate-y-6 opacity-0"
@@ -99,10 +99,10 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={dict.servicesPage.utilityBar.searchPlaceholder}
-                className="w-full rounded-lg border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+                className="w-full rounded-lg border border-white/35 bg-white/15 px-3 py-2 text-sm text-white placeholder:text-white/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               />
             </label>
-            <div className="inline-flex w-full flex-wrap rounded-lg border border-bw-lightgray p-1 lg:w-auto" role="tablist" aria-label={dict.servicesPage.utilityBar.divisionLabel}>
+            <div className="inline-flex w-full flex-wrap rounded-lg border border-white/35 p-1 lg:w-auto" role="tablist" aria-label={dict.servicesPage.utilityBar.divisionLabel}>
               {serviceDivisionFilters.map((division) => (
                 <button
                   key={`utility-${division}`}
@@ -112,8 +112,8 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
                   onClick={() => setActiveDivision(division)}
                   className={`rounded-md px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
                     activeDivision === division
-                      ? "bg-bw-primary text-white"
-                      : "text-bw-navy hover:bg-bw-lightblue/70"
+                      ? "bg-white text-bw-navy"
+                      : "text-white/90 hover:bg-white/15 hover:text-white"
                   }`}
                 >
                   {dict.servicesPage.divisions[division]}
@@ -125,7 +125,7 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
               data-quote-open="true"
               data-project={routeMeProject}
               data-campaign="services"
-              className="inline-flex items-center justify-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center justify-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               {dict.servicesPage.utilityBar.routeButton}
             </a>
@@ -133,85 +133,91 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
         </div>
       </div>
 
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="catalog-title" className="text-2xl font-semibold text-bw-navy">
-            {dict.servicesPage.catalogTitle}
-          </h2>
-          <p className="mt-2 text-bw-gray">{dict.servicesPage.catalogSubtitle}</p>
+      <div className="relative overflow-hidden rounded-[2rem] border border-bw-lightgray bg-gradient-to-br from-[#f8fafc] via-[#eef2ff] to-[#e2e8f0] p-4 shadow-[0_24px_60px_rgba(3,25,52,0.12)] sm:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-10 h-44 w-44 rounded-full bg-red-300/25 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-16 left-2 h-52 w-52 rounded-full bg-blue-300/20 blur-3xl"></div>
+
+        <div className="relative z-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 id="catalog-title" className="text-2xl font-semibold text-bw-navy">
+              {dict.servicesPage.catalogTitle}
+            </h2>
+            <p className="mt-2 text-bw-gray">{dict.servicesPage.catalogSubtitle}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto_auto] lg:items-end">
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.servicesPage.searchLabel}</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={dict.servicesPage.searchPlaceholder}
-            className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          />
-        </label>
+        <div className="relative z-10 mt-6 rounded-2xl border border-bw-lightgray bg-white/95 p-3 shadow-[0_12px_32px_rgba(3,25,52,0.12)] sm:p-4">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto_auto] lg:items-end">
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.servicesPage.searchLabel}</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={dict.servicesPage.searchPlaceholder}
+                className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              />
+            </label>
 
-        <div className="inline-flex flex-wrap rounded-xl border border-bw-lightgray bg-white p-1" role="tablist" aria-label={dict.servicesPage.filterDivisionLabel}>
-          {serviceDivisionFilters.map((division) => (
+            <div className="inline-flex flex-wrap rounded-xl border border-bw-lightgray bg-white p-1" role="tablist" aria-label={dict.servicesPage.filterDivisionLabel}>
+              {serviceDivisionFilters.map((division) => (
+                <button
+                  key={division}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeDivision === division}
+                  onClick={() => setActiveDivision(division)}
+                  className={`rounded-lg px-3 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                    activeDivision === division ? "bg-bw-primary text-white" : "text-bw-navy hover:bg-bw-lightblue/70"
+                  }`}
+                >
+                  {dict.servicesPage.divisions[division]}
+                </button>
+              ))}
+            </div>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.servicesPage.sortLabel}</span>
+              <select
+                value={sortBy}
+                onChange={(event) => setSortBy(event.target.value as ServiceSortId)}
+                className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              >
+                {serviceSortOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {dict.servicesPage.sortOptions[option]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-wrap">
             <button
-              key={division}
               type="button"
-              role="tab"
-              aria-selected={activeDivision === division}
-              onClick={() => setActiveDivision(division)}
-              className={`rounded-lg px-3 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-                activeDivision === division ? "bg-bw-primary text-white" : "text-bw-navy hover:bg-bw-lightblue/70"
+              onClick={() => setActiveTag("all")}
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                activeTag === "all" ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
               }`}
             >
-              {dict.servicesPage.divisions[division]}
+              {dict.servicesPage.allTags}
             </button>
-          ))}
+            {serviceTagFilters.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setActiveTag(tag)}
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                  activeTag === tag ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+                }`}
+              >
+                {dict.servicesPage.tags[tag]}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.servicesPage.sortLabel}</span>
-          <select
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value as ServiceSortId)}
-            className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          >
-            {serviceSortOptions.map((option) => (
-              <option key={option} value={option}>
-                {dict.servicesPage.sortOptions[option]}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => setActiveTag("all")}
-          className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-            activeTag === "all" ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-          }`}
-        >
-          {dict.servicesPage.allTags}
-        </button>
-        {serviceTagFilters.map((tag) => (
-          <button
-            key={tag}
-            type="button"
-            onClick={() => setActiveTag(tag)}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-              activeTag === tag ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-            }`}
-          >
-            {dict.servicesPage.tags[tag]}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filteredServices.map((service) => {
           const content = dict.servicesPage.catalogContent[service.id];
           const divisionLabel = dict.servicesPage.divisions[service.division];
@@ -265,10 +271,11 @@ export default function ServiceCatalog({ dict, lang, contactPath, externalQuery 
       </div>
 
       {filteredServices.length === 0 ? (
-        <p className="mt-5 rounded-xl border border-bw-lightgray bg-bw-lightblue/40 p-4 text-sm text-bw-gray">
+        <p className="relative z-10 mt-5 rounded-xl border border-bw-lightgray bg-white/80 p-4 text-sm text-bw-gray">
           {dict.servicesPage.emptyState}
         </p>
       ) : null}
+      </div>
     </section>
   );
 }

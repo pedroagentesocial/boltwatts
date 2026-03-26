@@ -58,7 +58,7 @@ export default function ServiceCard({
   placeholderLabel,
 }: Props) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-bw-lightgray bg-white shadow-sm transition motion-safe:duration-300 hover:-translate-y-1 hover:shadow-md focus-within:ring-2 focus-within:ring-bw-primary/60">
+    <article className="overflow-hidden rounded-2xl border border-bw-lightgray bg-white shadow-[0_12px_32px_rgba(3,25,52,0.12)] transition motion-safe:duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(3,25,52,0.18)] focus-within:ring-2 focus-within:ring-bw-primary/60">
       <ImageCard
         src={image}
         alt={title}
@@ -88,7 +88,7 @@ export default function ServiceCard({
             type="button"
             onClick={onToggle}
             aria-expanded={isExpanded}
-            className="inline-flex items-center rounded-md border border-bw-lightgray px-3 py-1.5 text-xs font-semibold text-bw-navy transition hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full border border-bw-lightgray px-3 py-1.5 text-xs font-semibold text-bw-navy transition hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
           >
             {labels.learnMore}
             <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-bw-gray">
@@ -101,7 +101,7 @@ export default function ServiceCard({
             data-project={projectType}
             data-service={id}
             data-campaign="services"
-            className="inline-flex items-center rounded-md bg-bw-primary px-3 py-1.5 text-xs font-semibold text-white shadow transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold text-white shadow transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
           >
             {labels.getRouted}
           </a>

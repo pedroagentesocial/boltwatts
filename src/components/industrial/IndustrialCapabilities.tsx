@@ -65,72 +65,76 @@ export default function IndustrialCapabilities({ dict, lang, contactPath, extern
   }, [activeTag, sortBy, query, dict.industrialPage.capabilityCatalog.content]);
 
   return (
-    <section id="industrial-capabilities" className="py-14 border-t border-bw-lightgray" aria-labelledby="industrial-capabilities-title">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="industrial-capabilities-title" className="text-2xl font-semibold text-bw-navy">
+    <section id="industrial-capabilities" className="py-12 border-t border-bw-lightgray sm:py-14" aria-labelledby="industrial-capabilities-title">
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] p-4 shadow-[0_24px_60px_rgba(3,25,52,0.34)] sm:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-10 h-44 w-44 rounded-full bg-red-500/20 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-16 left-2 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl"></div>
+
+        <div className="relative z-10">
+          <h2 id="industrial-capabilities-title" className="text-2xl font-semibold text-white">
             {dict.industrialPage.capabilityCatalog.title}
           </h2>
-          <p className="mt-2 text-bw-gray">{dict.industrialPage.capabilityCatalog.subtitle}</p>
+          <p className="mt-2 text-white/85">{dict.industrialPage.capabilityCatalog.subtitle}</p>
         </div>
-      </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.industrialPage.capabilityCatalog.searchLabel}</span>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={dict.industrialPage.capabilityCatalog.searchPlaceholder}
-            className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          />
-        </label>
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.industrialPage.capabilityCatalog.sortLabel}</span>
-          <select
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value as IndustrialSortId)}
-            className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          >
-            {industrialSortOptions.map((option) => (
-              <option key={option} value={option}>
-                {dict.industrialPage.capabilityCatalog.sortOptions[option]}
-              </option>
+        <div className="relative z-10 mt-6 rounded-2xl border border-white/30 bg-white/95 p-3 shadow-[0_12px_32px_rgba(3,25,52,0.15)] sm:p-4">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.industrialPage.capabilityCatalog.searchLabel}</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={dict.industrialPage.capabilityCatalog.searchPlaceholder}
+                className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              />
+            </label>
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.industrialPage.capabilityCatalog.sortLabel}</span>
+              <select
+                value={sortBy}
+                onChange={(event) => setSortBy(event.target.value as IndustrialSortId)}
+                className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              >
+                {industrialSortOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {dict.industrialPage.capabilityCatalog.sortOptions[option]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-wrap">
+            <button
+              type="button"
+              onClick={() => setActiveTag("all")}
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                activeTag === "all"
+                  ? "border-bw-primary bg-bw-primary text-white"
+                  : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+              }`}
+            >
+              {dict.industrialPage.capabilityCatalog.allTags}
+            </button>
+            {industrialTagFilters.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setActiveTag(tag)}
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                  activeTag === tag
+                    ? "border-bw-primary bg-bw-primary text-white"
+                    : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+                }`}
+              >
+                {dict.industrialPage.capabilityCatalog.tags[tag]}
+              </button>
             ))}
-          </select>
-        </label>
-      </div>
+          </div>
+        </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => setActiveTag("all")}
-          className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-            activeTag === "all"
-              ? "border-bw-primary bg-bw-primary text-white"
-              : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-          }`}
-        >
-          {dict.industrialPage.capabilityCatalog.allTags}
-        </button>
-        {industrialTagFilters.map((tag) => (
-          <button
-            key={tag}
-            type="button"
-            onClick={() => setActiveTag(tag)}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-              activeTag === tag
-                ? "border-bw-primary bg-bw-primary text-white"
-                : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-            }`}
-          >
-            {dict.industrialPage.capabilityCatalog.tags[tag]}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filteredCapabilities.map((capability) => {
           const content = dict.industrialPage.capabilityCatalog.content[capability.id];
           const destinationHref = resolveCapabilityHref(lang, capability.destination, capability.id);
@@ -184,10 +188,11 @@ export default function IndustrialCapabilities({ dict, lang, contactPath, extern
       </div>
 
       {filteredCapabilities.length === 0 ? (
-        <p className="mt-5 rounded-xl border border-bw-lightgray bg-bw-lightblue/40 p-4 text-sm text-bw-gray">
+        <p className="relative z-10 mt-5 rounded-xl border border-white/35 bg-white/20 p-4 text-sm text-white">
           {dict.industrialPage.capabilityCatalog.emptyState}
         </p>
       ) : null}
+      </div>
     </section>
   );
 }

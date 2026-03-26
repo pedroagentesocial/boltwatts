@@ -62,8 +62,8 @@ export default function CapabilityCard({
   placeholderLabel,
 }: Props) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-bw-lightgray bg-white shadow-sm transition motion-safe:duration-300 hover:-translate-y-1 hover:shadow-md focus-within:ring-2 focus-within:ring-bw-primary/60">
-      <ImageCard src={image} alt={title} fallbackLabel={placeholderLabel} className="h-48 w-full border-b border-bw-lightgray" />
+    <article className="overflow-hidden rounded-2xl border border-white/35 bg-white/95 shadow-[0_12px_32px_rgba(3,25,52,0.15)] transition motion-safe:duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(3,25,52,0.2)] focus-within:ring-2 focus-within:ring-white/80">
+      <ImageCard src={image} alt={title} fallbackLabel={placeholderLabel} className="h-40 w-full border-b border-bw-lightgray sm:h-48" />
       <div className="p-5">
         <div className="flex flex-wrap items-center gap-2">
           {tags.map((tag) => (
@@ -84,7 +84,7 @@ export default function CapabilityCard({
             type="button"
             onClick={onToggle}
             aria-expanded={isExpanded}
-            className="inline-flex items-center rounded-md border border-bw-lightgray px-3 py-1.5 text-xs font-semibold text-bw-navy transition hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full border border-bw-lightgray px-3 py-1.5 text-xs font-semibold text-bw-navy transition hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
           >
             {labels.learnMore}
             <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-bw-gray">{isExpanded ? labels.expandedLabel : labels.collapsedLabel}</span>
@@ -96,7 +96,7 @@ export default function CapabilityCard({
             data-service={serviceId}
             data-campaign={campaign}
             data-content={utmContent}
-            className="inline-flex items-center rounded-md bg-bw-primary px-3 py-1.5 text-xs font-semibold text-white shadow transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full bg-red-500 px-3 py-1.5 text-xs font-semibold text-white shadow transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
           >
             {labels.routeRequest}
           </a>

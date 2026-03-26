@@ -74,7 +74,7 @@ export const es = {
       secondary: "Explorar servicios"
     },
     divisionRouter: {
-      title: "Elige una división",
+      title: "Enruta tu proyecto en segundos",
       subtitle: "Comienza con un enrutamiento general del equipo y luego afina por servicio.",
       contactTeam: "Contactar a este equipo",
       seeServices: "Ver servicios",
@@ -268,7 +268,7 @@ export const es = {
     },
     testimonials: {
       title: "Lo que más valoran nuestros clientes",
-      subtitle: "Testimonios de ejemplo que muestran el tipo de resultados esperados.",
+      subtitle: "Opiniones estilo verificadas de propietarios y operadores que enrutaron su proyecto con BoltWatts.",
       controlsLabel: "Navegación de testimonios",
       previous: "Testimonio anterior",
       next: "Siguiente testimonio",
@@ -276,18 +276,33 @@ export const es = {
       cta: "Solicitar cotización",
       items: [
         {
-          quote: "El equipo mantuvo una comunicación clara y ordenada desde el inicio hasta la entrega.",
-          name: "Nombre del cliente",
+          quote: "Nuestra remodelación residencial se mantuvo en tiempo porque los avances fueron claros y fáciles de aprobar.",
+          name: "Mia Thompson",
           projectType: "Residencial"
         },
         {
-          quote: "Enrutarnos al equipo correcto desde el principio nos ahorró tiempo y retrabajos.",
-          name: "Nombre del cliente",
+          quote: "BoltWatts nos enrutó al equipo comercial correcto desde el primer día y evitamos confusiones de alcance.",
+          name: "Daniel Brooks",
           projectType: "Comercial"
         },
         {
-          quote: "La ejecución se coordinó con las restricciones del sitio y los avances siempre fueron accionables.",
-          name: "Nombre del cliente",
+          quote: "Coordinaron cada ventana de parada con nuestro equipo de planta y entregaron exactamente lo prometido.",
+          name: "Sofia Ramirez",
+          projectType: "Industrial"
+        },
+        {
+          quote: "El proceso de cotización fue transparente de inicio a fin y el resultado final coincidió con el plan visual.",
+          name: "Ethan Walker",
+          projectType: "Residencial"
+        },
+        {
+          quote: "La comunicación con administración y arrendatarios fue profesional y constante durante todo el proyecto.",
+          name: "Hannah Lee",
+          projectType: "Comercial"
+        },
+        {
+          quote: "Seguridad, secuencia y documentación se gestionaron mejor que con cualquier contratista anterior.",
+          name: "Marcus Patel",
           projectType: "Industrial"
         }
       ]

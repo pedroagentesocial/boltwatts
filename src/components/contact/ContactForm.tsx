@@ -191,36 +191,40 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
 
   if (success) {
     return (
-      <section className="py-14 border-t border-bw-lightgray" aria-labelledby="contact-form-title">
-        <div className="rounded-2xl border border-bw-lightgray bg-white p-6 shadow-sm">
-          <h2 id="contact-form-title" className="text-2xl font-semibold text-bw-navy">
-            {dict.contactPage.form.successTitle}
-          </h2>
-          <p className="mt-2 text-sm text-bw-gray">{dict.contactPage.form.successText}</p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                setSuccess(false);
-                setValues(initialValues);
-                setFiles([]);
-                setErrors({});
-              }}
-              className="inline-flex items-center rounded-md border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-            >
-              {dict.contactPage.form.reset}
-            </button>
-            <a
-              href={contactPath}
-              data-quote-open="true"
-              data-project={projectTypeByDivision[values.division as keyof typeof projectTypeByDivision] || projectTypeByDivision.residential}
-              data-service={values.serviceCategory}
-              data-campaign="contact"
-              data-content={values.serviceCategory}
-              className="inline-flex items-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-            >
-              {dict.contactPage.form.routeAnother}
-            </a>
+      <section className="py-12 border-t border-bw-lightgray sm:py-14" aria-labelledby="contact-form-title">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] p-4 shadow-[0_24px_60px_rgba(3,25,52,0.34)] sm:p-8">
+          <div className="pointer-events-none absolute -right-16 -top-10 h-44 w-44 rounded-full bg-red-500/20 blur-3xl"></div>
+          <div className="pointer-events-none absolute -bottom-16 left-2 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl"></div>
+          <div className="relative z-10 rounded-2xl border border-white/30 bg-white/95 p-6 shadow-[0_12px_32px_rgba(3,25,52,0.16)]">
+            <h2 id="contact-form-title" className="text-2xl font-semibold text-bw-navy">
+              {dict.contactPage.form.successTitle}
+            </h2>
+            <p className="mt-2 text-sm text-bw-gray">{dict.contactPage.form.successText}</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setSuccess(false);
+                  setValues(initialValues);
+                  setFiles([]);
+                  setErrors({});
+                }}
+                className="inline-flex items-center rounded-full border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              >
+                {dict.contactPage.form.reset}
+              </button>
+              <a
+                href={contactPath}
+                data-quote-open="true"
+                data-project={projectTypeByDivision[values.division as keyof typeof projectTypeByDivision] || projectTypeByDivision.residential}
+                data-service={values.serviceCategory}
+                data-campaign="contact"
+                data-content={values.serviceCategory}
+                className="inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
+              >
+                {dict.contactPage.form.routeAnother}
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -228,8 +232,11 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
   }
 
   return (
-    <section className="py-14 border-t border-bw-lightgray" aria-labelledby="contact-form-title">
-      <div className="rounded-2xl border border-bw-lightgray bg-white p-6 shadow-sm">
+    <section className="py-12 border-t border-bw-lightgray sm:py-14" aria-labelledby="contact-form-title">
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] p-4 shadow-[0_24px_60px_rgba(3,25,52,0.34)] sm:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-10 h-44 w-44 rounded-full bg-red-500/20 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-16 left-2 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl"></div>
+        <div className="relative z-10 rounded-2xl border border-white/30 bg-white/95 p-5 shadow-[0_12px_32px_rgba(3,25,52,0.16)] sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="contact-form-title" className="text-2xl font-semibold text-bw-navy">
             {dict.contactPage.form.title}
@@ -237,7 +244,7 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
           <button
             type="button"
             onClick={handleRouteRequest}
-            className="inline-flex items-center rounded-md border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
           >
             {dict.contactPage.form.routeRequest}
           </button>
@@ -262,14 +269,14 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
             <div className="mt-3 flex flex-wrap gap-3">
               <a
                 href={externalConfirmUrl}
-                className="inline-flex items-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+                className="inline-flex items-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
               >
                 {dict.contactPage.form.externalContinue}
               </a>
               <button
                 type="button"
                 onClick={() => setExternalConfirmUrl(null)}
-                className="inline-flex items-center rounded-md border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+                className="inline-flex items-center rounded-full border border-bw-lightgray px-4 py-2 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
               >
                 {dict.contactPage.form.externalBack}
               </button>
@@ -501,7 +508,7 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center rounded-md bg-bw-primary px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center rounded-full bg-red-500 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               {isSubmitting ? dict.contactPage.form.sending : dict.contactPage.form.submit}
             </button>
@@ -513,12 +520,13 @@ export default function ContactForm({ dict, contactPath, serviceCategories }: Pr
                 setErrors({});
                 setExternalConfirmUrl(null);
               }}
-              className="inline-flex items-center rounded-md border border-bw-lightgray px-5 py-2.5 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center rounded-full border border-bw-lightgray px-5 py-2.5 text-sm font-semibold text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
             >
               {dict.contactPage.form.clear}
             </button>
           </div>
         </form>
+        </div>
       </div>
     </section>
   );

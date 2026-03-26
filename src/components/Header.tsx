@@ -86,45 +86,66 @@ export default function Header({ lang, dict, currentPath }: Props) {
     ];
   }, [dict, lang]);
 
+  const normalizePath = (value: string) => {
+    const [raw] = value.split("?");
+    const trimmed = raw.replace(/\/+$/, "");
+    return trimmed === "" ? "/" : trimmed;
+  };
+
+  const currentNormalizedPath = normalizePath(currentPath);
+  const isLinkActive = (href: string) => {
+    const normalizedHref = normalizePath(href);
+    return currentNormalizedPath === normalizedHref;
+  };
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-bw-lightgray bg-white ${
-        isScrolled ? "shadow-sm" : "shadow-none"
+      className={`sticky top-0 z-50 border-b border-white/25 bg-bw-navy text-white ${
+        isScrolled ? "shadow-[0_14px_34px_rgba(3,25,52,0.35)]" : "shadow-none"
       }`}
     >
-      <div className="container-responsive flex items-center justify-between py-4">
-        <a href={buildPath(lang, "home")} className="flex items-center" aria-label={dict.common.brand}>
-          <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-12 w-auto object-contain" />
-        </a>
-        <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex">
-          {navLinks.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-bw-navy hover:text-bw-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 rounded-sm"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+      <div className="relative flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-8">
+          <a href={buildPath(lang, "home")} className="flex items-center" aria-label={dict.common.brand}>
+            <img src={withBasePath("/images/logo.png")} alt={dict.common.brand} className="h-12 w-auto object-contain brightness-0 invert" />
+          </a>
+          <nav aria-label="Primary" className="hidden items-center gap-3 lg:flex">
+            {navLinks.map(link => {
+              const isActive = isLinkActive(link.href);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`rounded-full px-3 py-1.5 text-sm font-medium transition motion-safe:duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+                    isActive
+                      ? "bg-white text-bw-navy shadow-sm"
+                      : "text-white/90 hover:bg-white/15 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </nav>
+        </div>
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href={buildPath(lang, "contact")}
             data-quote-open="true"
-            className="inline-flex items-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center rounded-full border border-red-300/40 bg-red-500/95 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
           >
             {dict.common.cta.requestQuote}
           </a>
           <a
             href={siteConfig.phoneHref}
-            className="inline-flex items-center rounded-md bg-bw-secondary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-secondary/60"
+            className="inline-flex items-center rounded-full border border-white/45 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
           >
             {dict.common.cta.call}
           </a>
           <button
             type="button"
             onClick={onToggle}
-            className="inline-flex items-center gap-2 rounded-md border border-bw-lightgray px-3 py-1.5 text-sm font-medium text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             aria-label={
               lang === "en"
                 ? dict.common.language.switchTo.replace("{{lang}}", dict.common.language.es)
@@ -141,22 +162,22 @@ export default function Header({ lang, dict, currentPath }: Props) {
           <button
             type="button"
             onClick={() => setIsOpen(prev => !prev)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-bw-lightgray text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/45 text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             aria-expanded={isOpen}
             aria-controls="mobile-nav"
             aria-label={isOpen ? dict.common.accessibility.closeMenu : dict.common.accessibility.openMenu}
           >
             <span className="sr-only">{dict.common.accessibility.menuLabel}</span>
             <div className="flex flex-col gap-1.5">
-              <span className={`h-0.5 w-5 bg-bw-navy transition ${isOpen ? "translate-y-2 rotate-45" : ""}`}></span>
-              <span className={`h-0.5 w-5 bg-bw-navy transition ${isOpen ? "opacity-0" : ""}`}></span>
-              <span className={`h-0.5 w-5 bg-bw-navy transition ${isOpen ? "-translate-y-2 -rotate-45" : ""}`}></span>
+              <span className={`h-0.5 w-5 bg-white transition ${isOpen ? "translate-y-2 rotate-45" : ""}`}></span>
+              <span className={`h-0.5 w-5 bg-white transition ${isOpen ? "opacity-0" : ""}`}></span>
+              <span className={`h-0.5 w-5 bg-white transition ${isOpen ? "-translate-y-2 -rotate-45" : ""}`}></span>
             </div>
           </button>
           <button
             type="button"
             onClick={onToggle}
-            className="inline-flex items-center gap-2 rounded-md border border-bw-lightgray px-3 py-1.5 text-sm font-medium text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+            className="inline-flex items-center gap-2 rounded-full border border-white/45 bg-white/10 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             aria-label={
               lang === "en"
                 ? dict.common.language.switchTo.replace("{{lang}}", dict.common.language.es)
@@ -177,39 +198,47 @@ export default function Header({ lang, dict, currentPath }: Props) {
       >
         <div
           ref={mobileNavRef}
-          className="container-responsive border-t border-bw-lightgray py-4 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2"
+          className="w-full border-t border-white/25 px-4 py-4 sm:px-6 lg:px-8 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2"
         >
           <nav aria-label="Mobile" className="flex flex-col gap-4">
-            {navLinks.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-bw-navy hover:text-bw-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 rounded-sm"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map(link => {
+              const isActive = isLinkActive(link.href);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+                    isActive
+                      ? "bg-white text-bw-navy"
+                      : "text-white/90 hover:bg-white/15 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
           <div className="mt-5 flex flex-col gap-3">
             <a
               href={buildPath(lang, "contact")}
               data-quote-open="true"
               onClick={() => setIsOpen(false)}
-              className="inline-flex items-center justify-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center justify-center rounded-full border border-red-300/40 bg-red-500/95 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               {dict.common.cta.requestQuote}
             </a>
             <a
               href={siteConfig.phoneHref}
-              className="inline-flex items-center justify-center rounded-md bg-bw-secondary px-4 py-2 text-sm font-semibold text-white shadow hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-secondary/60"
+              className="inline-flex items-center justify-center rounded-full border border-white/45 bg-white/15 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             >
               {dict.common.cta.call}
             </a>
             <button
               type="button"
               onClick={onToggle}
-              className="inline-flex items-center justify-center rounded-md border border-bw-lightgray px-4 py-2 text-sm font-medium text-bw-navy hover:bg-bw-lightblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center justify-center rounded-full border border-white/45 bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               aria-label={
                 lang === "en"
                   ? dict.common.language.switchTo.replace("{{lang}}", dict.common.language.es)

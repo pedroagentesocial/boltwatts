@@ -74,7 +74,7 @@ export default function ProjectsGrid({ dict, lang, contactPath, externalQuery }:
   } as const;
 
   return (
-    <section id="projects-grid" className="py-14 border-t border-bw-lightgray" aria-labelledby="projects-grid-title">
+    <section id="projects-grid" className="py-12 border-t border-bw-lightgray sm:py-14" aria-labelledby="projects-grid-title">
       <FilterBar
         visible={showSticky}
         search={search}
@@ -100,85 +100,91 @@ export default function ProjectsGrid({ dict, lang, contactPath, externalQuery }:
         }}
       />
 
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="projects-grid-title" className="text-2xl font-semibold text-bw-navy">
-            {dict.projectsPage.grid.title}
-          </h2>
-          <p className="mt-2 text-bw-gray">{dict.projectsPage.grid.subtitle}</p>
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] p-4 shadow-[0_24px_60px_rgba(3,25,52,0.34)] sm:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-10 h-44 w-44 rounded-full bg-red-500/20 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-16 left-2 h-52 w-52 rounded-full bg-blue-500/20 blur-3xl"></div>
+
+        <div className="relative z-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 id="projects-grid-title" className="text-2xl font-semibold text-white">
+              {dict.projectsPage.grid.title}
+            </h2>
+            <p className="mt-2 text-white/85">{dict.projectsPage.grid.subtitle}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_auto_auto] lg:items-end">
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.projectsPage.grid.searchLabel}</span>
-          <input
-            type="search"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder={dict.projectsPage.grid.searchPlaceholder}
-            className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          />
-        </label>
+        <div className="relative z-10 mt-6 rounded-2xl border border-white/30 bg-white/95 p-3 shadow-[0_12px_32px_rgba(3,25,52,0.15)] sm:p-4">
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto_auto] lg:items-end">
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.projectsPage.grid.searchLabel}</span>
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={dict.projectsPage.grid.searchPlaceholder}
+                className="mt-2 w-full rounded-xl border border-bw-lightgray px-4 py-2.5 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              />
+            </label>
 
-        <div className="inline-flex flex-wrap rounded-xl border border-bw-lightgray bg-white p-1" role="tablist" aria-label={dict.projectsPage.grid.divisionLabel}>
-          {(Object.keys(projectTypeByDivision) as Array<"all" | ProjectDivision>).map((division) => (
+            <div className="inline-flex flex-wrap rounded-xl border border-bw-lightgray bg-white p-1" role="tablist" aria-label={dict.projectsPage.grid.divisionLabel}>
+              {(Object.keys(projectTypeByDivision) as Array<"all" | ProjectDivision>).map((division) => (
+                <button
+                  key={`grid-division-${division}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeDivision === division}
+                  onClick={() => setActiveDivision(division)}
+                  className={`rounded-lg px-3 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                    activeDivision === division ? "bg-bw-primary text-white" : "text-bw-navy hover:bg-bw-lightblue/70"
+                  }`}
+                >
+                  {dict.projectsPage.divisions[division]}
+                </button>
+              ))}
+            </div>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-bw-navy">{dict.projectsPage.grid.sortLabel}</span>
+              <select
+                value={sortBy}
+                onChange={(event) => setSortBy(event.target.value as ProjectSortId)}
+                className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              >
+                {projectSortOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {dict.projectsPage.sortOptions[option]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-wrap">
             <button
-              key={`grid-division-${division}`}
               type="button"
-              role="tab"
-              aria-selected={activeDivision === division}
-              onClick={() => setActiveDivision(division)}
-              className={`rounded-lg px-3 py-2 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-                activeDivision === division ? "bg-bw-primary text-white" : "text-bw-navy hover:bg-bw-lightblue/70"
+              onClick={() => setActiveTag("all")}
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                activeTag === "all" ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
               }`}
             >
-              {dict.projectsPage.divisions[division]}
+              {dict.projectsPage.grid.allTags}
             </button>
-          ))}
+            {projectTagFilters.map((tag) => (
+              <button
+                key={`grid-tag-${tag}`}
+                type="button"
+                onClick={() => setActiveTag(tag)}
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
+                  activeTag === tag ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+                }`}
+              >
+                {dict.projectsPage.tags[tag]}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <label className="block">
-          <span className="text-sm font-semibold text-bw-navy">{dict.projectsPage.grid.sortLabel}</span>
-          <select
-            value={sortBy}
-            onChange={(event) => setSortBy(event.target.value as ProjectSortId)}
-            className="mt-2 rounded-xl border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
-          >
-            {projectSortOptions.map((option) => (
-              <option key={option} value={option}>
-                {dict.projectsPage.sortOptions[option]}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => setActiveTag("all")}
-          className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-            activeTag === "all" ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-          }`}
-        >
-          {dict.projectsPage.grid.allTags}
-        </button>
-        {projectTagFilters.map((tag) => (
-          <button
-            key={`grid-tag-${tag}`}
-            type="button"
-            onClick={() => setActiveTag(tag)}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-              activeTag === tag ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
-            }`}
-          >
-            {dict.projectsPage.tags[tag]}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="relative z-10 mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filteredProjects.map((project) => (
           <ProjectCard
             key={project.slug}
@@ -200,10 +206,11 @@ export default function ProjectsGrid({ dict, lang, contactPath, externalQuery }:
       </div>
 
       {filteredProjects.length === 0 ? (
-        <p className="mt-5 rounded-xl border border-bw-lightgray bg-bw-lightblue/40 p-4 text-sm text-bw-gray">
+        <p className="relative z-10 mt-5 rounded-xl border border-white/35 bg-white/20 p-4 text-sm text-white">
           {dict.projectsPage.grid.emptyState}
         </p>
       ) : null}
+      </div>
     </section>
   );
 }

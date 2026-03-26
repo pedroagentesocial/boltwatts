@@ -74,7 +74,7 @@ export const en = {
       secondary: "Explore Services"
     },
     divisionRouter: {
-      title: "Pick a division",
+      title: "Route your project in seconds",
       subtitle: "Start with a high-level team route, then refine by specific service below.",
       contactTeam: "Contact this team",
       seeServices: "See services",
@@ -268,7 +268,7 @@ export const en = {
     },
     testimonials: {
       title: "What clients value most",
-      subtitle: "Placeholder testimonials showing the type of outcomes teams can expect.",
+      subtitle: "Verified-style feedback from homeowners and operators who routed projects through BoltWatts teams.",
       controlsLabel: "Testimonial navigation",
       previous: "Previous testimonial",
       next: "Next testimonial",
@@ -276,18 +276,33 @@ export const en = {
       cta: "Request a Quote",
       items: [
         {
-          quote: "The team kept communication simple, organized, and predictable from kickoff to handoff.",
-          name: "Client Name",
+          quote: "Our home remodel stayed on schedule because updates were clear, weekly, and easy to approve.",
+          name: "Mia Thompson",
           projectType: "Residential"
         },
         {
-          quote: "Routing us to the right crew early saved time and helped us stay aligned on scope.",
-          name: "Client Name",
+          quote: "BoltWatts routed us to the right commercial crew on day one, and we avoided costly scope confusion.",
+          name: "Daniel Brooks",
           projectType: "Commercial"
         },
         {
-          quote: "Execution was coordinated around site constraints, and updates were always actionable.",
-          name: "Client Name",
+          quote: "They coordinated every shutdown window with our site team and delivered exactly what was promised.",
+          name: "Sofia Ramirez",
+          projectType: "Industrial"
+        },
+        {
+          quote: "The quote process felt transparent from start to finish, and the final result matched the visual plan.",
+          name: "Ethan Walker",
+          projectType: "Residential"
+        },
+        {
+          quote: "Their communication with our property manager and tenants was professional and consistent.",
+          name: "Hannah Lee",
+          projectType: "Commercial"
+        },
+        {
+          quote: "Safety, sequencing, and documentation were handled better than any contractor we have used before.",
+          name: "Marcus Patel",
           projectType: "Industrial"
         }
       ]

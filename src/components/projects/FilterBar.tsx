@@ -41,7 +41,7 @@ export default function FilterBar({
 }: Props) {
   return (
     <div
-      className={`fixed left-0 right-0 z-40 border-b border-bw-lightgray bg-white/95 backdrop-blur transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-40 border-b border-white/20 bg-[#06152b]/95 text-white backdrop-blur transition-all duration-300 ${
         visible ? "pointer-events-auto top-[64px] translate-y-0 opacity-100" : "pointer-events-none top-[64px] -translate-y-6 opacity-0"
       }`}
     >
@@ -54,11 +54,11 @@ export default function FilterBar({
               value={search}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder={labels.searchPlaceholder}
-              className="w-full rounded-lg border border-bw-lightgray px-3 py-2 text-sm text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="w-full rounded-lg border border-white/35 bg-white/15 px-3 py-2 text-sm text-white placeholder:text-white/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
             />
           </label>
 
-          <div className="inline-flex w-full flex-wrap rounded-lg border border-bw-lightgray p-1 xl:w-auto" role="tablist" aria-label={labels.divisionLabel}>
+          <div className="inline-flex w-full flex-wrap rounded-lg border border-white/35 p-1 xl:w-auto" role="tablist" aria-label={labels.divisionLabel}>
             {projectDivisionFilters.map((division) => (
               <button
                 key={`projects-division-${division}`}
@@ -67,7 +67,7 @@ export default function FilterBar({
                 aria-selected={activeDivision === division}
                 onClick={() => onDivisionChange(division)}
                 className={`rounded-md px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-                  activeDivision === division ? "bg-bw-primary text-white" : "text-bw-navy hover:bg-bw-lightblue/70"
+                  activeDivision === division ? "bg-white text-bw-navy" : "text-white/90 hover:bg-white/15 hover:text-white"
                 }`}
               >
                 {labels.divisionValues[division]}
@@ -79,8 +79,8 @@ export default function FilterBar({
             <button
               type="button"
               onClick={() => onTagChange("all")}
-              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-                activeTag === "all" ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+                activeTag === "all" ? "border-white bg-white text-bw-navy" : "border-white/35 bg-white/10 text-white hover:bg-white/20"
               }`}
             >
               {labels.allTags}
@@ -90,8 +90,8 @@ export default function FilterBar({
                 key={`project-tag-${tag}`}
                 type="button"
                 onClick={() => onTagChange(tag)}
-                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60 ${
-                  activeTag === tag ? "border-bw-primary bg-bw-primary text-white" : "border-bw-lightgray bg-white text-bw-navy hover:bg-bw-lightblue"
+                className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${
+                  activeTag === tag ? "border-white bg-white text-bw-navy" : "border-white/35 bg-white/10 text-white hover:bg-white/20"
                 }`}
               >
                 {labels.tagValues[tag]}
@@ -101,11 +101,11 @@ export default function FilterBar({
 
           <div className="flex flex-wrap items-center gap-2">
             <label className="inline-flex items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-bw-gray">{labels.sortLabel}</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">{labels.sortLabel}</span>
               <select
                 value={sortBy}
                 onChange={(event) => onSortChange(event.target.value as ProjectSortId)}
-                className="rounded-lg border border-bw-lightgray px-2.5 py-1.5 text-xs text-bw-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+                className="rounded-lg border border-white/35 bg-white/15 px-2.5 py-1.5 text-xs text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
               >
                 {projectSortOptions.map((option) => (
                   <option key={option} value={option}>
@@ -119,7 +119,7 @@ export default function FilterBar({
               data-quote-open="true"
               data-project={routeProjectType}
               data-campaign="projects"
-              className="inline-flex items-center justify-center rounded-md bg-bw-primary px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bw-primary/60"
+              className="inline-flex items-center justify-center rounded-full bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
             >
               {labels.routeLabel}
             </a>
