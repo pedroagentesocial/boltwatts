@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/logo.png",
+      "destination": "/images/logo.png",
+      "permanent": false
+    },
+    {
+      "source": "/videos/hero2.mov",
+      "destination": "/videos/hero2.mp4",
+      "permanent": false
+    }
+  ]
+}

@@ -26,6 +26,7 @@ const heroSlides = [
     secondaryHref: servicesPath,
     src: withBasePath("/videos/hero2.mp4"),
     fallbackSrc: withBasePath("/videos/hero2.mp4"),
+    poster: withBasePath("/images/Residential-layout-refresh.jpg"),
   },
   {
     title: dict.home.divisionRouter.title,
@@ -36,6 +37,7 @@ const heroSlides = [
     secondaryHref: projectsPath,
     src: withBasePath("/videos/hero1.mp4"),
     fallbackSrc: withBasePath("/videos/hero1.mp4"),
+    poster: withBasePath("/images/Office-modernization-wave.jpg"),
   },
   {
     title: dict.home.finalCta.title,
@@ -46,6 +48,7 @@ const heroSlides = [
     secondaryHref: contactPath,
     src: withBasePath("/videos/hero3.mp4"),
     fallbackSrc: withBasePath("/videos/hero3.mp4"),
+    poster: withBasePath("/images/Facility-access-upgrade.jpg"),
   },
 ];
 const carouselLabels =
@@ -84,11 +87,11 @@ const carouselLabels =
             loop
             playsinline
             preload={index === 0 ? "auto" : "metadata"}
-            poster={withBasePath("/images/logo.png")}
+            poster={slide.poster}
             aria-label={`${carouselLabels.slide} ${index + 1}`}
             data-fallback-src={slide.fallbackSrc}
           >
-            <source src={slide.src} />
+            <source src={slide.src} type="video/mp4" />
           </video>
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/30"></div>
           <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent"></div>
